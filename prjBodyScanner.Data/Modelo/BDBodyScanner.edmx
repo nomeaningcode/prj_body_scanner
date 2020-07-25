@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GestionBodyscannerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BitacoraBD">
+          <Key>
+            <PropertyRef Name="IDEntradaBD" />
+          </Key>
+          <Property Name="IDEntradaBD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreDocBD" Type="varchar" MaxLength="120" />
+          <Property Name="FechaBD" Type="varchar" MaxLength="250" />
+          <Property Name="HoraBD" Type="varchar" MaxLength="250" />
+          <Property Name="IDDorctorBD" Type="int" />
+          <Property Name="EquipoBD" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="DoctorBD">
+          <Key>
+            <PropertyRef Name="IDDoctor" />
+          </Key>
+          <Property Name="IDDoctor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Matricula" Type="varchar" MaxLength="250" />
+          <Property Name="NombreEBD" Type="varchar" MaxLength="250" />
+          <Property Name="APaternoBD" Type="varchar" MaxLength="250" />
+          <Property Name="AMarteno" Type="varchar" MaxLength="250" />
+          <Property Name="TelefonoEBD" Type="varchar" MaxLength="250" />
+          <Property Name="CorreoEBD" Type="varchar" MaxLength="250" />
+          <Property Name="ContraseniaBD" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="EnfermedadesBD">
+          <Key>
+            <PropertyRef Name="IDEnfermedadBD" />
+          </Key>
+          <Property Name="IDEnfermedadBD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomEnfermedad" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="OcupacionesBD">
+          <Key>
+            <PropertyRef Name="IDOcupBD" />
+          </Key>
+          <Property Name="IDOcupBD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomOcuBD" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="PacientesBD">
+          <Key>
+            <PropertyRef Name="IDPacienteBD" />
+          </Key>
+          <Property Name="IDPacienteBD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombPCBD" Type="varchar" MaxLength="250" />
+          <Property Name="APaterBD" Type="varchar" MaxLength="250" />
+          <Property Name="AMaterBD" Type="varchar" MaxLength="250" />
+          <Property Name="CorreoPCBD" Type="varchar" MaxLength="250" />
+          <Property Name="TelPCBD" Type="varchar" MaxLength="250" />
+          <Property Name="EdadBD" Type="int" />
+          <Property Name="IDTipoSangre" Type="int" />
+          <Property Name="IDSexo" Type="int" />
+          <Property Name="IDOcupBD" Type="int" />
+        </EntityType>
+        <EntityType Name="ResultadosBD">
+          <Key>
+            <PropertyRef Name="IDResultado" />
+          </Key>
+          <Property Name="IDResultado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPacienteBD" Type="int" />
+          <Property Name="IDDoctorBD" Type="int" />
+          <Property Name="IDEnfermedadBD" Type="int" />
+        </EntityType>
+        <EntityType Name="SexoBD">
+          <Key>
+            <PropertyRef Name="IDSexo" />
+          </Key>
+          <Property Name="IDSexo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomSexo" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TipoSangreBD">
+          <Key>
+            <PropertyRef Name="IDTipoSangre" />
+          </Key>
+          <Property Name="IDTipoSangre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomTipoSangre" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="fk_doc">
+          <End Role="DoctorBD" Type="Self.DoctorBD" Multiplicity="0..1" />
+          <End Role="ResultadosBD" Type="Self.ResultadosBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorBD">
+              <PropertyRef Name="IDDoctor" />
+            </Principal>
+            <Dependent Role="ResultadosBD">
+              <PropertyRef Name="IDDoctorBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_doctor">
+          <End Role="DoctorBD" Type="Self.DoctorBD" Multiplicity="0..1" />
+          <End Role="BitacoraBD" Type="Self.BitacoraBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorBD">
+              <PropertyRef Name="IDDoctor" />
+            </Principal>
+            <Dependent Role="BitacoraBD">
+              <PropertyRef Name="IDDorctorBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_enfer">
+          <End Role="EnfermedadesBD" Type="Self.EnfermedadesBD" Multiplicity="0..1" />
+          <End Role="ResultadosBD" Type="Self.ResultadosBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnfermedadesBD">
+              <PropertyRef Name="IDEnfermedadBD" />
+            </Principal>
+            <Dependent Role="ResultadosBD">
+              <PropertyRef Name="IDEnfermedadBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ocup">
+          <End Role="OcupacionesBD" Type="Self.OcupacionesBD" Multiplicity="0..1" />
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OcupacionesBD">
+              <PropertyRef Name="IDOcupBD" />
+            </Principal>
+            <Dependent Role="PacientesBD">
+              <PropertyRef Name="IDOcupBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_paciente">
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="0..1" />
+          <End Role="ResultadosBD" Type="Self.ResultadosBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PacientesBD">
+              <PropertyRef Name="IDPacienteBD" />
+            </Principal>
+            <Dependent Role="ResultadosBD">
+              <PropertyRef Name="IDPacienteBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sexo">
+          <End Role="SexoBD" Type="Self.SexoBD" Multiplicity="0..1" />
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SexoBD">
+              <PropertyRef Name="IDSexo" />
+            </Principal>
+            <Dependent Role="PacientesBD">
+              <PropertyRef Name="IDSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tiposangre">
+          <End Role="TipoSangreBD" Type="Self.TipoSangreBD" Multiplicity="0..1" />
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSangreBD">
+              <PropertyRef Name="IDTipoSangre" />
+            </Principal>
+            <Dependent Role="PacientesBD">
+              <PropertyRef Name="IDTipoSangre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionBodyscannerModelStoreContainer">
+          <EntitySet Name="BitacoraBD" EntityType="Self.BitacoraBD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorBD" EntityType="Self.DoctorBD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnfermedadesBD" EntityType="Self.EnfermedadesBD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OcupacionesBD" EntityType="Self.OcupacionesBD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PacientesBD" EntityType="Self.PacientesBD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResultadosBD" EntityType="Self.ResultadosBD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SexoBD" EntityType="Self.SexoBD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoSangreBD" EntityType="Self.TipoSangreBD" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_doc" Association="Self.fk_doc">
+            <End Role="DoctorBD" EntitySet="DoctorBD" />
+            <End Role="ResultadosBD" EntitySet="ResultadosBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_doctor" Association="Self.fk_doctor">
+            <End Role="DoctorBD" EntitySet="DoctorBD" />
+            <End Role="BitacoraBD" EntitySet="BitacoraBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_enfer" Association="Self.fk_enfer">
+            <End Role="EnfermedadesBD" EntitySet="EnfermedadesBD" />
+            <End Role="ResultadosBD" EntitySet="ResultadosBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ocup" Association="Self.fk_ocup">
+            <End Role="OcupacionesBD" EntitySet="OcupacionesBD" />
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_paciente" Association="Self.fk_paciente">
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+            <End Role="ResultadosBD" EntitySet="ResultadosBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sexo" Association="Self.fk_sexo">
+            <End Role="SexoBD" EntitySet="SexoBD" />
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tiposangre" Association="Self.fk_tiposangre">
+            <End Role="TipoSangreBD" EntitySet="TipoSangreBD" />
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GestionBodyscannerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BitacoraBD">
+          <Key>
+            <PropertyRef Name="IDEntradaBD" />
+          </Key>
+          <Property Name="IDEntradaBD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreDocBD" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="FechaBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="HoraBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IDDorctorBD" Type="Int32" />
+          <Property Name="EquipoBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DoctorBD" Relationship="Self.fk_doctor" FromRole="BitacoraBD" ToRole="DoctorBD" />
+        </EntityType>
+        <EntityType Name="DoctorBD">
+          <Key>
+            <PropertyRef Name="IDDoctor" />
+          </Key>
+          <Property Name="IDDoctor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Matricula" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="NombreEBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="APaternoBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AMarteno" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoEBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoEBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ContraseniaBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BitacoraBD" Relationship="Self.fk_doctor" FromRole="DoctorBD" ToRole="BitacoraBD" />
+          <NavigationProperty Name="ResultadosBD" Relationship="Self.fk_doc" FromRole="DoctorBD" ToRole="ResultadosBD" />
+        </EntityType>
+        <EntityType Name="EnfermedadesBD">
+          <Key>
+            <PropertyRef Name="IDEnfermedadBD" />
+          </Key>
+          <Property Name="IDEnfermedadBD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomEnfermedad" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ResultadosBD" Relationship="Self.fk_enfer" FromRole="EnfermedadesBD" ToRole="ResultadosBD" />
+        </EntityType>
+        <EntityType Name="OcupacionesBD">
+          <Key>
+            <PropertyRef Name="IDOcupBD" />
+          </Key>
+          <Property Name="IDOcupBD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomOcuBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PacientesBD" Relationship="Self.fk_ocup" FromRole="OcupacionesBD" ToRole="PacientesBD" />
+        </EntityType>
+        <EntityType Name="PacientesBD">
+          <Key>
+            <PropertyRef Name="IDPacienteBD" />
+          </Key>
+          <Property Name="IDPacienteBD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombPCBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="APaterBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AMaterBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoPCBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TelPCBD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EdadBD" Type="Int32" />
+          <Property Name="IDTipoSangre" Type="Int32" />
+          <Property Name="IDSexo" Type="Int32" />
+          <Property Name="IDOcupBD" Type="Int32" />
+          <NavigationProperty Name="OcupacionesBD" Relationship="Self.fk_ocup" FromRole="PacientesBD" ToRole="OcupacionesBD" />
+          <NavigationProperty Name="ResultadosBD" Relationship="Self.fk_paciente" FromRole="PacientesBD" ToRole="ResultadosBD" />
+          <NavigationProperty Name="SexoBD" Relationship="Self.fk_sexo" FromRole="PacientesBD" ToRole="SexoBD" />
+          <NavigationProperty Name="TipoSangreBD" Relationship="Self.fk_tiposangre" FromRole="PacientesBD" ToRole="TipoSangreBD" />
+        </EntityType>
+        <EntityType Name="ResultadosBD">
+          <Key>
+            <PropertyRef Name="IDResultado" />
+          </Key>
+          <Property Name="IDResultado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPacienteBD" Type="Int32" />
+          <Property Name="IDDoctorBD" Type="Int32" />
+          <Property Name="IDEnfermedadBD" Type="Int32" />
+          <NavigationProperty Name="DoctorBD" Relationship="Self.fk_doc" FromRole="ResultadosBD" ToRole="DoctorBD" />
+          <NavigationProperty Name="EnfermedadesBD" Relationship="Self.fk_enfer" FromRole="ResultadosBD" ToRole="EnfermedadesBD" />
+          <NavigationProperty Name="PacientesBD" Relationship="Self.fk_paciente" FromRole="ResultadosBD" ToRole="PacientesBD" />
+        </EntityType>
+        <EntityType Name="SexoBD">
+          <Key>
+            <PropertyRef Name="IDSexo" />
+          </Key>
+          <Property Name="IDSexo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomSexo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PacientesBD" Relationship="Self.fk_sexo" FromRole="SexoBD" ToRole="PacientesBD" />
+        </EntityType>
+        <EntityType Name="TipoSangreBD">
+          <Key>
+            <PropertyRef Name="IDTipoSangre" />
+          </Key>
+          <Property Name="IDTipoSangre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomTipoSangre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PacientesBD" Relationship="Self.fk_tiposangre" FromRole="TipoSangreBD" ToRole="PacientesBD" />
+        </EntityType>
+        <Association Name="fk_doctor">
+          <End Role="DoctorBD" Type="Self.DoctorBD" Multiplicity="0..1" />
+          <End Role="BitacoraBD" Type="Self.BitacoraBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorBD">
+              <PropertyRef Name="IDDoctor" />
+            </Principal>
+            <Dependent Role="BitacoraBD">
+              <PropertyRef Name="IDDorctorBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_doc">
+          <End Role="DoctorBD" Type="Self.DoctorBD" Multiplicity="0..1" />
+          <End Role="ResultadosBD" Type="Self.ResultadosBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorBD">
+              <PropertyRef Name="IDDoctor" />
+            </Principal>
+            <Dependent Role="ResultadosBD">
+              <PropertyRef Name="IDDoctorBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_enfer">
+          <End Role="EnfermedadesBD" Type="Self.EnfermedadesBD" Multiplicity="0..1" />
+          <End Role="ResultadosBD" Type="Self.ResultadosBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnfermedadesBD">
+              <PropertyRef Name="IDEnfermedadBD" />
+            </Principal>
+            <Dependent Role="ResultadosBD">
+              <PropertyRef Name="IDEnfermedadBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ocup">
+          <End Role="OcupacionesBD" Type="Self.OcupacionesBD" Multiplicity="0..1" />
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OcupacionesBD">
+              <PropertyRef Name="IDOcupBD" />
+            </Principal>
+            <Dependent Role="PacientesBD">
+              <PropertyRef Name="IDOcupBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_paciente">
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="0..1" />
+          <End Role="ResultadosBD" Type="Self.ResultadosBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PacientesBD">
+              <PropertyRef Name="IDPacienteBD" />
+            </Principal>
+            <Dependent Role="ResultadosBD">
+              <PropertyRef Name="IDPacienteBD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sexo">
+          <End Role="SexoBD" Type="Self.SexoBD" Multiplicity="0..1" />
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SexoBD">
+              <PropertyRef Name="IDSexo" />
+            </Principal>
+            <Dependent Role="PacientesBD">
+              <PropertyRef Name="IDSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tiposangre">
+          <End Role="TipoSangreBD" Type="Self.TipoSangreBD" Multiplicity="0..1" />
+          <End Role="PacientesBD" Type="Self.PacientesBD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSangreBD">
+              <PropertyRef Name="IDTipoSangre" />
+            </Principal>
+            <Dependent Role="PacientesBD">
+              <PropertyRef Name="IDTipoSangre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GestionBodyscannerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BitacoraBD" EntityType="Self.BitacoraBD" />
+          <EntitySet Name="DoctorBD" EntityType="Self.DoctorBD" />
+          <EntitySet Name="EnfermedadesBD" EntityType="Self.EnfermedadesBD" />
+          <EntitySet Name="OcupacionesBD" EntityType="Self.OcupacionesBD" />
+          <EntitySet Name="PacientesBD" EntityType="Self.PacientesBD" />
+          <EntitySet Name="ResultadosBD" EntityType="Self.ResultadosBD" />
+          <EntitySet Name="SexoBD" EntityType="Self.SexoBD" />
+          <EntitySet Name="TipoSangreBD" EntityType="Self.TipoSangreBD" />
+          <AssociationSet Name="fk_doctor" Association="Self.fk_doctor">
+            <End Role="DoctorBD" EntitySet="DoctorBD" />
+            <End Role="BitacoraBD" EntitySet="BitacoraBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_doc" Association="Self.fk_doc">
+            <End Role="DoctorBD" EntitySet="DoctorBD" />
+            <End Role="ResultadosBD" EntitySet="ResultadosBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_enfer" Association="Self.fk_enfer">
+            <End Role="EnfermedadesBD" EntitySet="EnfermedadesBD" />
+            <End Role="ResultadosBD" EntitySet="ResultadosBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ocup" Association="Self.fk_ocup">
+            <End Role="OcupacionesBD" EntitySet="OcupacionesBD" />
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_paciente" Association="Self.fk_paciente">
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+            <End Role="ResultadosBD" EntitySet="ResultadosBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sexo" Association="Self.fk_sexo">
+            <End Role="SexoBD" EntitySet="SexoBD" />
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tiposangre" Association="Self.fk_tiposangre">
+            <End Role="TipoSangreBD" EntitySet="TipoSangreBD" />
+            <End Role="PacientesBD" EntitySet="PacientesBD" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GestionBodyscannerModelStoreContainer" CdmEntityContainer="GestionBodyscannerEntities">
+          <EntitySetMapping Name="BitacoraBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.BitacoraBD">
+              <MappingFragment StoreEntitySet="BitacoraBD">
+                <ScalarProperty Name="IDEntradaBD" ColumnName="IDEntradaBD" />
+                <ScalarProperty Name="NombreDocBD" ColumnName="NombreDocBD" />
+                <ScalarProperty Name="FechaBD" ColumnName="FechaBD" />
+                <ScalarProperty Name="HoraBD" ColumnName="HoraBD" />
+                <ScalarProperty Name="IDDorctorBD" ColumnName="IDDorctorBD" />
+                <ScalarProperty Name="EquipoBD" ColumnName="EquipoBD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.DoctorBD">
+              <MappingFragment StoreEntitySet="DoctorBD">
+                <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+                <ScalarProperty Name="NombreEBD" ColumnName="NombreEBD" />
+                <ScalarProperty Name="APaternoBD" ColumnName="APaternoBD" />
+                <ScalarProperty Name="AMarteno" ColumnName="AMarteno" />
+                <ScalarProperty Name="TelefonoEBD" ColumnName="TelefonoEBD" />
+                <ScalarProperty Name="CorreoEBD" ColumnName="CorreoEBD" />
+                <ScalarProperty Name="ContraseniaBD" ColumnName="ContraseniaBD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnfermedadesBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.EnfermedadesBD">
+              <MappingFragment StoreEntitySet="EnfermedadesBD">
+                <ScalarProperty Name="IDEnfermedadBD" ColumnName="IDEnfermedadBD" />
+                <ScalarProperty Name="NomEnfermedad" ColumnName="NomEnfermedad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OcupacionesBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.OcupacionesBD">
+              <MappingFragment StoreEntitySet="OcupacionesBD">
+                <ScalarProperty Name="IDOcupBD" ColumnName="IDOcupBD" />
+                <ScalarProperty Name="NomOcuBD" ColumnName="NomOcuBD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PacientesBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.PacientesBD">
+              <MappingFragment StoreEntitySet="PacientesBD">
+                <ScalarProperty Name="IDPacienteBD" ColumnName="IDPacienteBD" />
+                <ScalarProperty Name="NombPCBD" ColumnName="NombPCBD" />
+                <ScalarProperty Name="APaterBD" ColumnName="APaterBD" />
+                <ScalarProperty Name="AMaterBD" ColumnName="AMaterBD" />
+                <ScalarProperty Name="CorreoPCBD" ColumnName="CorreoPCBD" />
+                <ScalarProperty Name="TelPCBD" ColumnName="TelPCBD" />
+                <ScalarProperty Name="EdadBD" ColumnName="EdadBD" />
+                <ScalarProperty Name="IDTipoSangre" ColumnName="IDTipoSangre" />
+                <ScalarProperty Name="IDSexo" ColumnName="IDSexo" />
+                <ScalarProperty Name="IDOcupBD" ColumnName="IDOcupBD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResultadosBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.ResultadosBD">
+              <MappingFragment StoreEntitySet="ResultadosBD">
+                <ScalarProperty Name="IDResultado" ColumnName="IDResultado" />
+                <ScalarProperty Name="IDPacienteBD" ColumnName="IDPacienteBD" />
+                <ScalarProperty Name="IDDoctorBD" ColumnName="IDDoctorBD" />
+                <ScalarProperty Name="IDEnfermedadBD" ColumnName="IDEnfermedadBD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SexoBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.SexoBD">
+              <MappingFragment StoreEntitySet="SexoBD">
+                <ScalarProperty Name="IDSexo" ColumnName="IDSexo" />
+                <ScalarProperty Name="NomSexo" ColumnName="NomSexo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoSangreBD">
+            <EntityTypeMapping TypeName="GestionBodyscannerModel.TipoSangreBD">
+              <MappingFragment StoreEntitySet="TipoSangreBD">
+                <ScalarProperty Name="IDTipoSangre" ColumnName="IDTipoSangre" />
+                <ScalarProperty Name="NomTipoSangre" ColumnName="NomTipoSangre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
