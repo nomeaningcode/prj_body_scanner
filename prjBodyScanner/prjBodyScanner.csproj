@@ -56,6 +56,7 @@
     <Reference Include="System.IO.Packaging, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Packaging.4.7.0\lib\net46\System.IO.Packaging.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -189,6 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reportes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\prjBodyScanner.Data\prjBodyScanner.Data.csproj">
+      <Project>{468e9a6c-9ba2-4622-bad2-934562614731}</Project>
+      <Name>prjBodyScanner.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
