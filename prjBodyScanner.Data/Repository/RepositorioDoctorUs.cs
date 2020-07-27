@@ -14,8 +14,7 @@ namespace prjBodyScanner.Data.Repository
     {
         private GestionBodyscannerEntities contexto = new GestionBodyscannerEntities();
 
-        #region Consulta de usuario
-
+        #region elementos de usuario de usuario
         public DoctorBD GetDoctorByMatricula(string _mat)
         {
             DoctorBD doctorBD = null;
@@ -31,6 +30,33 @@ namespace prjBodyScanner.Data.Repository
             }
 
             return doctorBD;
+        }
+        public bool ActualizarEmpleadoFB(DoctorBD _doc)
+        {
+
+            DoctorBD objDoc = null;
+            bool resultado = false;
+
+            try
+            {
+                Expression<Func<DoctorBD, bool>> expression = e => e.IDDoctor.Equals(_doc.IDDoctor);
+                objDoc = contexto.DoctorBD.Where(expression).FirstOrDefault<DoctorBD>();
+
+                objDoc.CorreoEBD = _doc.CorreoEBD;
+                objDoc.TelefonoEBD = _doc.TelefonoEBD;
+
+                contexto.DoctorBD.Attach(objDoc);
+                contexto.Entry(objDoc).State = System.Data.Entity.EntityState.Modified;
+                contexto.SaveChanges();
+
+                resultado = true;
+            }
+            catch (Exception ex)
+            {
+                string em = ex.Message;
+            }
+
+            return resultado;
         }
 
 

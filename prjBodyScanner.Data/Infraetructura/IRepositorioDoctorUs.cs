@@ -14,5 +14,6 @@ namespace prjBodyScanner.Data.Infraetructura
         bool InsertarRegistro(BitacoraBD _bD);
         List<BitacoraBD> GetEntradas(int _idUser);
         bool LimpiarBitacoraBeforeDeleteUser(int _id);
+        bool ActualizarEmpleadoFB(DoctorBD _doc);
     }
 }

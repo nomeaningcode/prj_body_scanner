@@ -1,5 +1,6 @@
 ﻿using prjBodyScanner.Cache;
 using prjBodyScanner.Data.Infraetructura;
+using prjBodyScanner.Data.Modelo;
 using prjBodyScanner.Data.Repository;
 using System;
 using System.Collections.Generic;
@@ -98,8 +99,51 @@ namespace prjBodyScanner.Views.Dinamicas
             txtCelular.Text = UserLoginCache.Telefono;
             txtCorreo.Text = UserLoginCache.Correo;
         }
+        private DoctorBD RecoleccionDatos()
+        {
+
+            DoctorBD objDoctor = new DoctorBD();
+            objDoctor.IDDoctor = UserLoginCache.IIDoctor;
+            objDoctor.CorreoEBD = txtCorreo.Text;
+            objDoctor.TelefonoEBD = txtCelular.Text;
+
+            UserLoginCache.Telefono = objDoctor.TelefonoEBD;
+            UserLoginCache.Correo = objDoctor.CorreoEBD;
+
+            return objDoctor;
+        }
+
+        private bool ActualizarDatos()
+        {
+            bool respuesta = conn.ActualizarEmpleadoFB(RecoleccionDatos());
+
+            if (respuesta == true)
+            {
+                LoadDataToTextBox();
+                MessageBox.Show("Actuliazción de datos correcta", "Transacción finalizada", 0, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Transacción fallida", "Error", 0, MessageBoxIcon.Error);
+            }
+
+            EstadoTextBox(false);
+
+            return respuesta;
+        }
 
         #endregion
 
+        #region eventos
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            ActualizarDatos();
+        }
+        private void Actualizar_Tick(object sender, EventArgs e)
+        {
+            SetDataToGridViewUser();
+        }
+
+        #endregion
     }
 }

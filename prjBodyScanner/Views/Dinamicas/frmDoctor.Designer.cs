@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SpliGeneral = new System.Windows.Forms.SplitContainer();
             this.SpDatos = new System.Windows.Forms.SplitContainer();
             this.lblTitulo = new System.Windows.Forms.Label();
@@ -64,7 +64,6 @@
             this.clmDia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmHora = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmEquipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnlimpiar = new System.Windows.Forms.Button();
             this.Actualizar = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.SpliGeneral)).BeginInit();
             this.SpliGeneral.Panel1.SuspendLayout();
@@ -96,7 +95,6 @@
             this.SplitG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitDise)).BeginInit();
             this.SplitDise.Panel1.SuspendLayout();
-            this.SplitDise.Panel2.SuspendLayout();
             this.SplitDise.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spv1)).BeginInit();
             this.spv1.Panel2.SuspendLayout();
@@ -412,6 +410,7 @@
             this.btnGuardar.TabIndex = 16;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // SplitG
             // 
@@ -453,10 +452,6 @@
             // SplitDise.Panel1
             // 
             this.SplitDise.Panel1.Controls.Add(this.spv1);
-            // 
-            // SplitDise.Panel2
-            // 
-            this.SplitDise.Panel2.Controls.Add(this.btnlimpiar);
             this.SplitDise.Size = new System.Drawing.Size(751, 456);
             this.SplitDise.SplitterDistance = 390;
             this.SplitDise.TabIndex = 0;
@@ -493,20 +488,20 @@
             this.dgvBitacora.AllowUserToAddRows = false;
             this.dgvBitacora.AllowUserToDeleteRows = false;
             this.dgvBitacora.AllowUserToResizeColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.dgvBitacora.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            this.dgvBitacora.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvBitacora.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Yellow;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBitacora.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBitacora.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvBitacora.ColumnHeadersHeight = 35;
             this.dgvBitacora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvBitacora.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -514,14 +509,14 @@
             this.clmDia,
             this.clmHora,
             this.clmEquipo});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvBitacora.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvBitacora.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvBitacora.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvBitacora.EnableHeadersVisualStyles = false;
             this.dgvBitacora.Location = new System.Drawing.Point(0, 0);
@@ -557,18 +552,10 @@
             this.clmEquipo.Name = "clmEquipo";
             this.clmEquipo.ReadOnly = true;
             // 
-            // btnlimpiar
-            // 
-            this.btnlimpiar.Location = new System.Drawing.Point(537, 18);
-            this.btnlimpiar.Name = "btnlimpiar";
-            this.btnlimpiar.Size = new System.Drawing.Size(185, 23);
-            this.btnlimpiar.TabIndex = 0;
-            this.btnlimpiar.Text = "Limpiar bitacora";
-            this.btnlimpiar.UseVisualStyleBackColor = true;
-            // 
             // Actualizar
             // 
             this.Actualizar.Interval = 10000;
+            this.Actualizar.Tick += new System.EventHandler(this.Actualizar_Tick);
             // 
             // frmDoctor
             // 
@@ -613,7 +600,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.SplitG)).EndInit();
             this.SplitG.ResumeLayout(false);
             this.SplitDise.Panel1.ResumeLayout(false);
-            this.SplitDise.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitDise)).EndInit();
             this.SplitDise.ResumeLayout(false);
             this.spv1.Panel2.ResumeLayout(false);
@@ -662,6 +648,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDia;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmHora;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmEquipo;
-        private System.Windows.Forms.Button btnlimpiar;
     }
 }
