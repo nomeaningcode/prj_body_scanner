@@ -16,7 +16,7 @@ namespace prjBodyScanner.Views.Dinamicas
 {
     public partial class frmBResultados : Form
     {
-        IRepositoryBitacoraResultados contexto = new RepositoryBitacoraResultados();
+        private IRepositoryBitacoraResultados contexto = new RepositoryBitacoraResultados();
         public frmBResultados()
         {
             InitializeComponent();
@@ -70,7 +70,7 @@ namespace prjBodyScanner.Views.Dinamicas
 
         #region Metodos de control
 
-        private DialogResult Desicion()
+        private DialogResult Decision()
         {
 
             string Mensaje = "Se esta editando otro item\n\n¿Desea continuar?";
@@ -159,7 +159,7 @@ namespace prjBodyScanner.Views.Dinamicas
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-
+            ControlEliminar();
         }
     }
 }

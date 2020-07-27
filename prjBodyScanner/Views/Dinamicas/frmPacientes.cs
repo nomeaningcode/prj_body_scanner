@@ -1,5 +1,4 @@
-﻿using prjBodyScanner.Clases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,10 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using prjBodyScanner.Clases;
+using prjBodyScanner.Data.Infraestructura;
+using prjBodyScanner.Data.Modelo;
+using prjBodyScanner.Data.Repository;
+
 namespace prjBodyScanner.Views.Dinamicas
 {
     public partial class frmPacientes : Form
     {
+        private IRepositoryPaciente contexto = new RepositoryPaciente();
         public frmPacientes()
         {
             InitializeComponent();
@@ -24,9 +29,12 @@ namespace prjBodyScanner.Views.Dinamicas
         private void InicializadorCustom()
         {
             ResizeDGVAction();
+            SetDataToDGVe();
             DisabledTextBox();
+            ddlListarTipossangre();
+            ddlListarSexo();
+            ddlListarOcupaciones();
         }
-
         private int RowSeleccionada = 0;
         private bool EdiOrCr = false;
 
@@ -70,10 +78,15 @@ namespace prjBodyScanner.Views.Dinamicas
         private void EnabledTextBox()
         {
 
-            this.txtNombre.Enabled = this.txtApaterno.Enabled = this.txtAmaterno.Enabled = this.txttelefono.Enabled = this.txtCorreo.Enabled = this.btnGuardar.Enabled =  this.txtEdad.Enabled = this.txtOcupacion.Enabled = true ;
+            this.txtNombre.Enabled = true;
+            this.txtApaterno.Enabled = true;
+            this.txtAmaterno.Enabled = true;
+            this.txttelefono.Enabled = true;
+            this.txtCorreo.Enabled = true;
+            this.btnGuardar.Enabled = true;
+            this.txtEdad.Enabled = true;
 
             this.btnGuardar.BackColor = Color.Lime;
-
             this.SplitComtroles.SplitterDistance = 940;
             this.SplitEdicionP.Visible = true;
         }
@@ -87,8 +100,6 @@ namespace prjBodyScanner.Views.Dinamicas
             this.txttelefono.Clear();
             this.txtCorreo.Clear();
             this.txtEdad.Clear();
-            this.txtOcupacion.Clear();
-            this.txtMatricula.Clear();
 
         }
 
@@ -170,7 +181,6 @@ namespace prjBodyScanner.Views.Dinamicas
             {
                 EdiOrCr = true;
                 EnabledTextBox();
-                ControlMatriculaContrasenia();
             }
             else
             {
@@ -179,62 +189,24 @@ namespace prjBodyScanner.Views.Dinamicas
                     Limpiar();
                     EdiOrCr = true;
                     EnabledTextBox();
-                    ControlMatriculaContrasenia();
                 }
             }
         }
 
-        private void ControlMatriculaContrasenia()
-        {
-            txtMatricula.Text = GenerarContrasenia();
-        }
 
-        private void Insertar()
-        {
 
-            if (txtNombre.Text == "")
-            {
-                MessageBox.Show("El empleado debe de poseer nombre", "Alerta", 0, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                if (txtMatricula.Text == "")
-                {
-                    MessageBox.Show("Agregue una contraseña para el primer logeo\n\nPosteriomente la podra configurar desde:\nPrivacidad ",
-                        "Alerta", 0, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    bool Confirma = true;
-                    //bool Confirma = contexto.InsertEmpleado(CreateObjectEmpleado());
 
-                    if (Confirma == true)
-                    {
-                        MessageBox.Show("Registro exitoso", "Operación finalizada", 0, MessageBoxIcon.Information);
-                        //SetDataToDGVe();
-                        SeleccionarUltimoC();
-                        Limpiar();
-                        DisabledTextBox();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Registro fallido", "Error inesperado", 0, MessageBoxIcon.Information);
-                    }
-                }
-            }
-
-        }
 
         #endregion
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-
+            ControlEliminar();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-
+            PermitirActualizacion();
         }
 
         private void btnAgregarEm_Click(object sender, EventArgs e)
@@ -244,17 +216,242 @@ namespace prjBodyScanner.Views.Dinamicas
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (txtMatricula.Text != "")
+
+            DialogResult result = MessageBox.Show("¿Desea cancelar la operación?\nLos datos sin guardar se perderan", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                Limpiar();
+                DisabledTextBox();
+            }
+
+
+        }
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (EdiOrCr == true)
+            {
+                InsertarPaciente();
+            }
+            else
+            {
+                actualizar();
+            }
+        }
+
+        #region MetodosControladores
+
+        private IRepositoryList repository = new RepositoryList();
+        public void ddlListarTipossangre()
+        {
+
+            this.ddlTipoSangre.DataSource = repository.GetTipoSangre();
+            this.ddlTipoSangre.DisplayMember = "NomTipoSangre";
+            this.ddlTipoSangre.ValueMember = "IDTipoSangre";
+            if (repository.GetTipoSangre().Count > 0)
+            {
+                this.ddlTipoSangre.SelectedIndex = 0;
+            }
+        }
+        public void ddlListarSexo()
+        {
+
+            this.ddlSexo.DataSource = repository.GetSexo();
+            this.ddlSexo.DisplayMember = "NomSexo";
+            this.ddlSexo.ValueMember = "IDSexo";
+            if (repository.GetSexo().Count > 0)
+            {
+                this.ddlSexo.SelectedIndex = 0;
+            }
+        }
+        public void ddlListarOcupaciones()
+        {
+
+            this.ddlOcupacion.DataSource = repository.GetOcupacion();
+            this.ddlOcupacion.DisplayMember = "NomOcuBD";
+            this.ddlOcupacion.ValueMember = "IDOcupBD";
+            if (repository.GetOcupacion().Count > 0)
+            {
+                this.ddlOcupacion.SelectedIndex = 0;
+            }
+        }
+
+        #endregion
+
+        #region InsertarPacientes
+        private PacientesBD GetDataFromTextBox(PacientesBD _pac)
+        {
+
+            _pac.NombPCBD = txtNombre.Text;
+            _pac.APaterBD = txtApaterno.Text;
+            _pac.AMaterBD = txtAmaterno.Text;
+            _pac.TelPCBD = txttelefono.Text;
+            _pac.CorreoPCBD = txtCorreo.Text;
+            _pac.EdadBD = int.Parse(txtEdad.Text);
+            _pac.IDOcupBD = int.Parse(ddlOcupacion.SelectedValue.ToString());
+            _pac.IDSexo = int.Parse(ddlSexo.SelectedValue.ToString());
+            _pac.IDTipoSangre = int.Parse(ddlTipoSangre.SelectedValue.ToString());
+            return _pac;
+
+        }
+
+        private PacientesBD CreateObjectPacientes()
+        {
+
+            PacientesBD pacientes = new PacientesBD();
+            PacientesBD Retornable = null;
+
+            if (EdiOrCr == true)
+            {
+                Retornable = GetDataFromTextBox(pacientes);
+            }
+            else
+            {
+                int idE = int.Parse(txtID.Text);
+                Retornable = GetDataFromTextBox(pacientes);
+                Retornable.IDPacienteBD = idE;
+            }
+
+            return Retornable;
+        }
+
+        private void InsertarPaciente()
+        {
+            bool Confirma = contexto.InsertarPaciente(CreateObjectPacientes());
+
+            if (Confirma == true)
+            {
+                MessageBox.Show("Registro exitoso", "Operación finalizada", 0, MessageBoxIcon.Information);
+                SetDataToDGVe();
+                SeleccionarUltimoC();
+                Limpiar();
+                DisabledTextBox();
+            }
+            else
+            {
+                MessageBox.Show("Registro fallido", "Error inesperado", 0, MessageBoxIcon.Information);
+            }
+        }
+
+        #endregion
+
+        #region Data
+        private void SetDataToDGVe()
+        {
+
+            this.dgvPacientes.AutoGenerateColumns = false;
+            this.dgvPacientes.DataSource = contexto.GetPacientes();
+
+            this.dgvPacientes.Columns[0].DataPropertyName = "IDPacienteBD";
+            this.dgvPacientes.Columns[1].DataPropertyName = "NombPCBD";
+            this.dgvPacientes.Columns[2].DataPropertyName = "APaterBD";
+            this.dgvPacientes.Columns[3].DataPropertyName = "AMaterBD";
+            this.dgvPacientes.Columns[4].DataPropertyName = "EdadBD";
+            this.dgvPacientes.Columns[5].DataPropertyName = "IDTipoSangre";
+            this.dgvPacientes.Columns[6].DataPropertyName = "TelPCBD";
+            this.dgvPacientes.Columns[7].DataPropertyName = "CorreoPCBD";
+            this.dgvPacientes.Columns[8].DataPropertyName = "IDSexo";
+            this.dgvPacientes.Columns[9].DataPropertyName = "IDOcupBD";
+        }
+        #endregion
+
+        #region ActualizarPacientes
+        private void SetDataToTextBox()
+        {
+            int IdA = (int)dgvPacientes.CurrentRow.Cells[0].Value;
+            PacientesBD paciente = contexto.GetPacienteById(IdA);
+
+            txtID.Text = paciente.IDPacienteBD.ToString();
+            txtNombre.Text = paciente.NombPCBD;
+            txttelefono.Text = paciente.TelPCBD;
+            txtCorreo.Text = paciente.CorreoPCBD;
+            txtAmaterno.Text = paciente.AMaterBD;
+            txtApaterno.Text = paciente.APaterBD;
+            txtEdad.Text = paciente.EdadBD.ToString();
+            ddlSexo.SelectedValue = paciente.IDSexo;
+            ddlTipoSangre.SelectedValue = paciente.IDTipoSangre;
+            ddlOcupacion.SelectedValue = paciente.IDOcupBD;
+
+        }
+        private void PermitirActualizacion()
+        {
+
+            if (txtID.Text == "")
             {
 
-                DialogResult result = MessageBox.Show("¿Desea cancelar la operación?\nLos datos sin guardar se perderan", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
+                RowSeleccionada = (int)dgvPacientes.CurrentCell.RowIndex;
+                EdiOrCr = false;
+                SetDataToTextBox();
+                EnabledTextBox();
+            }
+            else
+            {
+                if (Desicion() == DialogResult.Yes)
                 {
-                    Limpiar();
-                    DisabledTextBox();
-                }
 
+                    RowSeleccionada = (int)dgvPacientes.CurrentCell.RowIndex;
+                    EdiOrCr = false;
+                    SetDataToTextBox();
+                    EnabledTextBox();
+                }
+            }
+        }
+        private void dgvPacientes_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dgvPacientes.CurrentRow.Index >= 0 && dgvPacientes.CurrentCell.ColumnIndex >= 0)
+            {
+                PermitirActualizacion();
+            }
+        }
+
+        public void actualizar()
+        {
+            bool Confirma = contexto.ActualizarPaciente(CreateObjectPacientes());
+
+            if (Confirma == true)
+            {
+                MessageBox.Show("Actualización exitosa", "Proceso finalizado", 0, MessageBoxIcon.Information);
+                SetDataToDGVe();
+                RegistroExitoso();
+                SeleccionarEditado();
+            }
+            else
+            {
+                MessageBox.Show("Actualización fallida", "Error", 0, MessageBoxIcon.Error);
+            }
+        }
+        private void RegistroExitoso()
+        {
+            Limpiar();
+            DisabledTextBox();
+        }
+        #endregion
+
+        #region EliminarPaciente
+        public void ControlEliminar()
+        {
+            int idElim = (int)dgvPacientes.CurrentRow.Cells["clmIDEmpleado"].Value;
+            string cn = dgvPacientes.CurrentRow.Cells["clmNomPac"].Value.ToString();
+            string mn = "¿Desea eliminar al Paciente con ID: " + idElim + "?\n\nNombre: " + cn;
+            MessageBoxButtons bn = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            result = MessageBox.Show(mn, "Alerta", bn, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                contexto.EliminarPaciente(idElim);
+                SetDataToDGVe();
+            }
+        }
+        #endregion
+
+        private void dgvPacientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                ControlEliminar();
+                e.Handled = true;
             }
         }
     }

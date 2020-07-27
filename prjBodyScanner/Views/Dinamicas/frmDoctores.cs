@@ -1,5 +1,4 @@
-﻿using prjBodyScanner.Clases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,10 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using prjBodyScanner.Clases;
+using prjBodyScanner.Data.Infraestructura;
+using prjBodyScanner.Data.Modelo;
+using prjBodyScanner.Data.Repository;
+
 namespace prjBodyScanner.Views.Dinamicas
 {
     public partial class frmDoctores : Form
     {
+
+        private IRepositoryDoctores contexto = new RepositoryDoctor();
         public frmDoctores()
         {
             InitializeComponent();
@@ -26,6 +32,7 @@ namespace prjBodyScanner.Views.Dinamicas
         {
             ResizeDGVAction();
             DisabledTextBox();
+            SetDataToDGVe();
         }
 
         private int RowSeleccionada = 0;
@@ -169,7 +176,38 @@ namespace prjBodyScanner.Views.Dinamicas
         #endregion
 
         #region Metodos Insertar
+        private DoctorBD GetDataFromTextBox(DoctorBD _pac)
+        {
 
+            _pac.NombreEBD = txtNombre.Text;
+            _pac.Matricula = txtMatricula.Text;
+            _pac.APaternoBD = txtApaterno.Text;
+            _pac.AMarteno = txtAmaterno.Text;
+            _pac.TelefonoEBD = txttelefono.Text;
+            _pac.CorreoEBD = txtCorreo.Text;
+            _pac.ContraseniaBD = txtContrasena.Text;
+            return _pac;
+
+        }
+        private DoctorBD CreateObjectDoctor()
+        {
+
+            DoctorBD doctor = new DoctorBD();
+            DoctorBD Retornable = null;
+
+            if (EdiOrCr == true)
+            {
+                Retornable = GetDataFromTextBox(doctor);
+            }
+            else
+            {
+                int idE = int.Parse(txtID.Text);
+                Retornable = GetDataFromTextBox(doctor);
+                Retornable.IDDoctor = idE;
+            }
+
+            return Retornable;
+        }
         private void ControlInsertar()
         {
             if (txtID.Text == "")
@@ -202,7 +240,7 @@ namespace prjBodyScanner.Views.Dinamicas
 
             if (txtNombre.Text == "")
             {
-                MessageBox.Show("El empleado debe de poseer nombre", "Alerta", 0, MessageBoxIcon.Warning);
+                MessageBox.Show("El Doctor debe de poseer nombre", "Alerta", 0, MessageBoxIcon.Warning);
             }
             else
             {
@@ -213,13 +251,12 @@ namespace prjBodyScanner.Views.Dinamicas
                 }
                 else
                 {
-                    bool Confirma = true;
-                    //bool Confirma = contexto.InsertEmpleado(CreateObjectEmpleado());
+                    bool Confirma = contexto.InsertarDoctor(CreateObjectDoctor());
 
                     if (Confirma == true)
                     {
                         MessageBox.Show("Registro exitoso", "Operación finalizada", 0, MessageBoxIcon.Information);
-                        //SetDataToDGVe();
+                        SetDataToDGVe();
                         SeleccionarUltimoC();
                         Limpiar();
                         DisabledTextBox();
@@ -234,7 +271,111 @@ namespace prjBodyScanner.Views.Dinamicas
         }
 
         #endregion
-      
+
+        #region Data
+        private void SetDataToDGVe()
+        {
+
+            this.dgvDoctores.AutoGenerateColumns = false;
+            this.dgvDoctores.DataSource = contexto.GetDoctores();
+
+            this.dgvDoctores.Columns[0].DataPropertyName = "IDDoctor";
+            this.dgvDoctores.Columns[1].DataPropertyName = "Matricula";
+            this.dgvDoctores.Columns[2].DataPropertyName = "NombreEBD";
+            this.dgvDoctores.Columns[3].DataPropertyName = "APaternoBD";
+            this.dgvDoctores.Columns[4].DataPropertyName = "AMarteno";
+            this.dgvDoctores.Columns[5].DataPropertyName = "TelefonoEBD";
+            this.dgvDoctores.Columns[6].DataPropertyName = "CorreoEBD";
+        }
+        #endregion
+
+        #region ActualizarDoctor
+        private void SetDataToTextBox()
+        {
+            int IdA = (int)dgvDoctores.CurrentRow.Cells[0].Value;
+            DoctorBD doctor = contexto.GetDoctorById(IdA);
+
+            txtID.Text = doctor.IDDoctor.ToString();
+            txtMatricula.Text = doctor.Matricula;
+            txtNombre.Text = doctor.NombreEBD;
+            txtApaterno.Text = doctor.APaternoBD;
+            txtAmaterno.Text = doctor.AMarteno;
+            txttelefono.Text = doctor.TelefonoEBD;
+            txtCorreo.Text = doctor.CorreoEBD;
+            txtContrasena.Text = doctor.ContraseniaBD;
+        }
+        private void PermitirActualizacion()
+        {
+
+            if (txtID.Text == "")
+            {
+
+                RowSeleccionada = (int)dgvDoctores.CurrentCell.RowIndex;
+                EdiOrCr = false;
+                SetDataToTextBox();
+                EnabledTextBox();
+            }
+            else
+            {
+                if (Desicion() == DialogResult.Yes)
+                {
+
+                    RowSeleccionada = (int)dgvDoctores.CurrentCell.RowIndex;
+                    EdiOrCr = false;
+                    SetDataToTextBox();
+                    EnabledTextBox();
+                }
+            }
+        }
+        private void dgvDoctores_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvDoctores.CurrentRow.Index >= 0 && dgvDoctores.CurrentCell.ColumnIndex >= 0)
+            {
+                PermitirActualizacion();
+            }
+        }
+
+        public void actualizar()
+        {
+            bool Confirma = contexto.ActualizarDoctor(CreateObjectDoctor());
+
+            if (Confirma == true)
+            {
+                MessageBox.Show("Actualización exitosa", "Proceso finalizado", 0, MessageBoxIcon.Information);
+                SetDataToDGVe();
+                RegistroExitoso();
+                SeleccionarEditado();
+            }
+            else
+            {
+                MessageBox.Show("Actualización fallida", "Error", 0, MessageBoxIcon.Error);
+            }
+        }
+        private void RegistroExitoso()
+        {
+            Limpiar();
+            DisabledTextBox();
+        }
+        #endregion
+
+        #region EliminarDoctor
+        public void ControlEliminar()
+        {
+            int idElim = (int)dgvDoctores.CurrentRow.Cells["clmIDDoctor"].Value;
+            string cn = dgvDoctores.CurrentRow.Cells["clmNomEm"].Value.ToString();
+            string mn = "¿Desea eliminar al Doctor con ID: " + idElim + "?\n\nNombre: " + cn;
+            MessageBoxButtons bn = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            result = MessageBox.Show(mn, "Alerta", bn, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                contexto.EliminarDoctor(idElim);
+                SetDataToDGVe();
+            }
+        }
+        #endregion
         private void btnAgregarEm_Click(object sender, EventArgs e)
         {
             ControlInsertar();
@@ -263,12 +404,28 @@ namespace prjBodyScanner.Views.Dinamicas
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-
+            PermitirActualizacion();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-
+            ControlEliminar();
         }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (EdiOrCr == true)
+            {
+                Insertar();
+            }
+            else
+            {
+                actualizar();
+                label5.Visible = false;
+                txtContrasena.Visible = false;
+            }
+        }
+
+
     }
 }
