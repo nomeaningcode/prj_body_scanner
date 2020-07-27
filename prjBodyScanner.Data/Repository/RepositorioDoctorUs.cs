@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-using prjBodyScanner.Data.Infraetructura;
+using prjBodyScanner.Data.Infraestructura;
 using prjBodyScanner.Data.Modelo;
 
 namespace prjBodyScanner.Data.Repository

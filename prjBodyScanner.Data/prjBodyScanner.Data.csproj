@@ -65,7 +65,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infraetructura\IRepositorioDoctorUs.cs" />
+    <Compile Include="Infraestructura\IRepositorioDoctorUs.cs" />
+    <Compile Include="Infraestructura\IRepositoryBitacoraResultados.cs" />
+    <Compile Include="Infraestructura\IRepositoryDoctores.cs" />
     <Compile Include="Modelo\BDBodyScanner.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,6 +109,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositorioDoctorUs.cs" />
+    <Compile Include="Repository\RepositoryBitacoraResultados.cs" />
+    <Compile Include="Repository\RepositoryDoctor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using prjBodyScanner.Data.Modelo;
 
-namespace prjBodyScanner.Data.Infraetructura
+namespace prjBodyScanner.Data.Infraestructura
 {
     public interface IRepositorioDoctorUs
     {
