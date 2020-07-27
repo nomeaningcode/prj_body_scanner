@@ -1,8 +1,4 @@
-﻿using prjBodyScanner.Cache;
-using prjBodyScanner.Data.Infraetructura;
-using prjBodyScanner.Data.Modelo;
-using prjBodyScanner.Data.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using prjBodyScanner.Cache;
+using prjBodyScanner.Data.Infraestructura;
+using prjBodyScanner.Data.Modelo;
+using prjBodyScanner.Data.Repository;
+
 
 namespace prjBodyScanner.Views.Dinamicas
 {

@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using prjBodyScanner.Views.Bases;
 
+using prjBodyScanner.Views.Bases;
 using prjBodyScanner.Data.Modelo;
-using prjBodyScanner.Data.Infraetructura;
+using prjBodyScanner.Data.Infraestructura;
 using prjBodyScanner.Data.Repository;
-using System.Diagnostics;
 using prjBodyScanner.Cache;
 
 namespace prjBodyScanner.Seguridad

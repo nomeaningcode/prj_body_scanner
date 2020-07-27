@@ -1,5 +1,4 @@
-﻿using prjBodyScanner.Clases;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,10 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using prjBodyScanner.Clases;
+using prjBodyScanner.Data.Infraestructura;
+using prjBodyScanner.Data.Repository;
+
 namespace prjBodyScanner.Views.Dinamicas
 {
     public partial class frmBResultados : Form
     {
+        IRepositoryBitacoraResultados contexto = new RepositoryBitacoraResultados();
         public frmBResultados()
         {
             InitializeComponent();
@@ -25,6 +29,7 @@ namespace prjBodyScanner.Views.Dinamicas
         {
             ResizeDGVAction();
             DisabledTextBox();
+            SetDataToDGVe();
         }
 
         private int RowSeleccionada = 0;
@@ -118,6 +123,38 @@ namespace prjBodyScanner.Views.Dinamicas
         }
 
 
+        #endregion
+
+        #region Data
+        private void SetDataToDGVe()
+        {
+
+            this.dgvResultado.AutoGenerateColumns = false;
+            this.dgvResultado.DataSource = contexto.GetBitacora();
+
+            this.dgvResultado.Columns[0].DataPropertyName = "IDResultado";
+            this.dgvResultado.Columns[1].DataPropertyName = "IDPacienteBD";
+            this.dgvResultado.Columns[2].DataPropertyName = "IDDoctorBD";
+            this.dgvResultado.Columns[3].DataPropertyName = "IDEnfermedadBD";
+        }
+        #endregion
+
+        #region EliminarResultado
+        public void ControlEliminar()
+        {
+            int idElim = (int)dgvResultado.CurrentRow.Cells["clmIDEscaneo"].Value;
+            string mn = "¿Desea eliminar el Resultado con ID: " + idElim;
+            MessageBoxButtons bn = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            result = MessageBox.Show(mn, "Alerta", bn, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                contexto.EliminarBitacora(idElim);
+                SetDataToDGVe();
+            }
+        }
         #endregion
 
         private void btnEliminar_Click(object sender, EventArgs e)

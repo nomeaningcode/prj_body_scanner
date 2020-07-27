@@ -68,6 +68,8 @@
     <Compile Include="Infraestructura\IRepositorioDoctorUs.cs" />
     <Compile Include="Infraestructura\IRepositoryBitacoraResultados.cs" />
     <Compile Include="Infraestructura\IRepositoryDoctores.cs" />
+    <Compile Include="Infraestructura\IRepositoryList.cs" />
+    <Compile Include="Infraestructura\IRepositoryPaciente.cs" />
     <Compile Include="Modelo\BDBodyScanner.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -111,6 +113,8 @@
     <Compile Include="Repository\RepositorioDoctorUs.cs" />
     <Compile Include="Repository\RepositoryBitacoraResultados.cs" />
     <Compile Include="Repository\RepositoryDoctor.cs" />
+    <Compile Include="Repository\RepositoryList.cs" />
+    <Compile Include="Repository\RepositoryPaciente.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
