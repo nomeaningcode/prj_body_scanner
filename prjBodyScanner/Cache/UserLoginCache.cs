@@ -15,7 +15,6 @@ namespace prjBodyScanner.Cache
         public static string ApellidoM { get; set; }
         public static string Telefono { get; set; }
         public static string Correo { get; set; }
-        public static string Direccion { get; set; }
         public static bool AccionCerrar { get; set; }
     }
 }

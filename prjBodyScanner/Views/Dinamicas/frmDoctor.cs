@@ -1,4 +1,7 @@
-﻿using System;
+﻿using prjBodyScanner.Cache;
+using prjBodyScanner.Data.Infraetructura;
+using prjBodyScanner.Data.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,9 +25,13 @@ namespace prjBodyScanner.Views.Dinamicas
         }
         private void InicializadorCustom()
         {
+            LoadDataToTextBox();
+            SetDataToGridViewUser();
             EstadoTextBox(false);
             ResizeGV();
         }
+
+        private IRepositorioDoctorUs conn = new RepositorioDoctorUs();
 
         #region Diseño responsivo
         private void ResizeGV()
@@ -69,6 +76,29 @@ namespace prjBodyScanner.Views.Dinamicas
         {
             EstadoTextBox(false);
         }
+        #endregion
+
+        #region Data
+        private void SetDataToGridViewUser()
+        {
+
+            dgvBitacora.AutoGenerateColumns = false;
+            dgvBitacora.DataSource = conn.GetEntradas(UserLoginCache.IIDoctor);
+            dgvBitacora.Columns[0].DataPropertyName = "NombreDocBD";
+            dgvBitacora.Columns[1].DataPropertyName = "FechaBD";
+            dgvBitacora.Columns[2].DataPropertyName = "HoraBD";
+            dgvBitacora.Columns[3].DataPropertyName = "EquipoBD";
+
+        }
+        private void LoadDataToTextBox()
+        {
+            txtNombre.Text = UserLoginCache.Nombre;
+            txtAPaterno.Text = UserLoginCache.ApellidoP;
+            txtAmaterno.Text = UserLoginCache.ApellidoM;
+            txtCelular.Text = UserLoginCache.Telefono;
+            txtCorreo.Text = UserLoginCache.Correo;
+        }
+
         #endregion
 
     }
