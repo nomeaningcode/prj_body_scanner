@@ -70,6 +70,7 @@
     <Compile Include="Infraestructura\IRepositoryDoctores.cs" />
     <Compile Include="Infraestructura\IRepositoryList.cs" />
     <Compile Include="Infraestructura\IRepositoryPaciente.cs" />
+    <Compile Include="Infraestructura\IRepositoryResultado.cs" />
     <Compile Include="Modelo\BDBodyScanner.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,6 +116,7 @@
     <Compile Include="Repository\RepositoryDoctor.cs" />
     <Compile Include="Repository\RepositoryList.cs" />
     <Compile Include="Repository\RepositoryPaciente.cs" />
+    <Compile Include="Repository\RepositoryResultado.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

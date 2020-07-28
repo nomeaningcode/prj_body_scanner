@@ -45,6 +45,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtIdBodS = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.cmbBuscar = new System.Windows.Forms.ComboBox();
             this.txtContacto = new System.Windows.Forms.TextBox();
             this.txtEdad = new System.Windows.Forms.TextBox();
             this.txtSexo = new System.Windows.Forms.TextBox();
@@ -85,8 +87,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.SPDesi = new System.Windows.Forms.SplitContainer();
             this.btnImprimirR = new System.Windows.Forms.Button();
-            this.cmbBuscar = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SpliGeneral)).BeginInit();
             this.SpliGeneral.Panel1.SuspendLayout();
             this.SpliGeneral.Panel2.SuspendLayout();
@@ -308,6 +308,7 @@
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(216, 21);
             this.cmbEstado.TabIndex = 25;
+            this.cmbEstado.SelectionChangeCommitted += new System.EventHandler(this.cmbEstado_SelectionChangeCommitted);
             // 
             // label6
             // 
@@ -353,6 +354,29 @@
             this.label14.Size = new System.Drawing.Size(147, 18);
             this.label14.TabIndex = 20;
             this.label14.Text = "Identificador Maquina";
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.MediumSpringGreen;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(234, 10);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(29, 26);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "B";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // cmbBuscar
+            // 
+            this.cmbBuscar.FormattingEnabled = true;
+            this.cmbBuscar.Location = new System.Drawing.Point(107, 15);
+            this.cmbBuscar.Name = "cmbBuscar";
+            this.cmbBuscar.Size = new System.Drawing.Size(121, 21);
+            this.cmbBuscar.TabIndex = 27;
             // 
             // txtContacto
             // 
@@ -415,6 +439,7 @@
             this.btnEscanear.TabIndex = 14;
             this.btnEscanear.Text = "Iniciar escaneo";
             this.btnEscanear.UseVisualStyleBackColor = false;
+            this.btnEscanear.Click += new System.EventHandler(this.btnEscanear_Click);
             // 
             // label8
             // 
@@ -886,29 +911,6 @@
             this.btnImprimirR.TabIndex = 15;
             this.btnImprimirR.Text = "Imprimir resultados";
             this.btnImprimirR.UseVisualStyleBackColor = false;
-            // 
-            // cmbBuscar
-            // 
-            this.cmbBuscar.FormattingEnabled = true;
-            this.cmbBuscar.Location = new System.Drawing.Point(107, 15);
-            this.cmbBuscar.Name = "cmbBuscar";
-            this.cmbBuscar.Size = new System.Drawing.Size(121, 21);
-            this.cmbBuscar.TabIndex = 27;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.MediumSpringGreen;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(234, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 26);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "B";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // frmConsulta
             // 
