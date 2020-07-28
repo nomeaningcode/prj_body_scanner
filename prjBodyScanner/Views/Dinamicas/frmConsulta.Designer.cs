@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -45,7 +46,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtIdBodS = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.cmbBuscar = new System.Windows.Forms.ComboBox();
             this.txtContacto = new System.Windows.Forms.TextBox();
             this.txtEdad = new System.Windows.Forms.TextBox();
@@ -87,6 +87,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.SPDesi = new System.Windows.Forms.SplitContainer();
             this.btnImprimirR = new System.Windows.Forms.Button();
+            this.TimerBusqueda = new System.Windows.Forms.Timer(this.components);
+            this.btnConfirmar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SpliGeneral)).BeginInit();
             this.SpliGeneral.Panel1.SuspendLayout();
             this.SpliGeneral.Panel2.SuspendLayout();
@@ -222,7 +224,7 @@
             // 
             // SPEdicion.Panel2
             // 
-            this.SPEdicion.Panel2.Controls.Add(this.button1);
+            this.SPEdicion.Panel2.Controls.Add(this.btnConfirmar);
             this.SPEdicion.Panel2.Controls.Add(this.cmbBuscar);
             this.SPEdicion.Panel2.Controls.Add(this.txtContacto);
             this.SPEdicion.Panel2.Controls.Add(this.txtEdad);
@@ -355,21 +357,6 @@
             this.label14.TabIndex = 20;
             this.label14.Text = "Identificador Maquina";
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.MediumSpringGreen;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(234, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 26);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "B";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
             // cmbBuscar
             // 
             this.cmbBuscar.FormattingEnabled = true;
@@ -377,6 +364,7 @@
             this.cmbBuscar.Name = "cmbBuscar";
             this.cmbBuscar.Size = new System.Drawing.Size(121, 21);
             this.cmbBuscar.TabIndex = 27;
+            this.cmbBuscar.TextChanged += new System.EventHandler(this.cmbBuscar_TextChanged);
             // 
             // txtContacto
             // 
@@ -912,6 +900,27 @@
             this.btnImprimirR.Text = "Imprimir resultados";
             this.btnImprimirR.UseVisualStyleBackColor = false;
             // 
+            // TimerBusqueda
+            // 
+            this.TimerBusqueda.Interval = 3500;
+            this.TimerBusqueda.Tick += new System.EventHandler(this.TimerBusqueda_Tick);
+            // 
+            // btnConfirmar
+            // 
+            this.btnConfirmar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfirmar.BackColor = System.Drawing.Color.MediumSpringGreen;
+            this.btnConfirmar.FlatAppearance.BorderColor = System.Drawing.Color.Teal;
+            this.btnConfirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmar.Location = new System.Drawing.Point(234, 11);
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.Size = new System.Drawing.Size(29, 25);
+            this.btnConfirmar.TabIndex = 28;
+            this.btnConfirmar.Text = "c";
+            this.btnConfirmar.UseVisualStyleBackColor = false;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
+            // 
             // frmConsulta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1046,7 +1055,8 @@
         private System.Windows.Forms.TextBox txtGlucosa;
         private System.Windows.Forms.SplitContainer SPDesi;
         private System.Windows.Forms.Button btnImprimirR;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox cmbBuscar;
+        private System.Windows.Forms.Timer TimerBusqueda;
+        private System.Windows.Forms.Button btnConfirmar;
     }
 }

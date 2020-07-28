@@ -25,7 +25,7 @@ namespace prjBodyScanner.Views.Dinamicas
         #region Metodos de inicio
 
         private IRepositoryResultado resultado = new RepositoryResultado();
-        private int idenfermedad = 0;
+        private int idenfermedad = 0, idPac = 0;
         private void frmConsulta_Load(object sender, EventArgs e)
         {
             InicializarCustom();
@@ -37,6 +37,7 @@ namespace prjBodyScanner.Views.Dinamicas
             insertDatos();
             StatMaquina();
             PaintDocD();
+            TimerBusqueda.Start();
         }
 
         private void RenderGrid()
@@ -131,10 +132,102 @@ namespace prjBodyScanner.Views.Dinamicas
 
         #endregion
 
-        private void btnEscanear_Click(object sender, EventArgs e)
-        {
-            GenerarNumerosRandom();
+        #region Busqueda de empleado
+        private void ReturnUserPac() {
+
+            IRepositoryPaciente connpac = new RepositoryPaciente();
+            cmbBuscar.DataSource = connpac.GetPacientes();
+            cmbBuscar.ValueMember = "IDPacienteBD";
+            cmbBuscar.DisplayMember = "CorreoPCBD";
+            cmbBuscar.SelectedItem = null;
+
+            IRepositoryResultado connrec = new RepositoryResultado();
+            cmbBuscar.AutoCompleteCustomSource = connrec.LoadAutoComplete();
+            cmbBuscar.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cmbBuscar.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
         }
 
+        #endregion
+
+        #region Start & Guardar
+        private void PreInit() {
+
+            if (dgvBitacora.RowCount > 0) {
+                dgvBitacora.Rows.Clear();
+            }
+
+            GenerarNumerosRandom();
+
+        }
+        private void PostInit()
+        {
+            if (dgvBitacora.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow _dre in dgvBitacora.Rows)
+                {
+                    ResultadosBD _res = new ResultadosBD();
+                    _res.IDDoctorBD = UserLoginCache.IIDoctor;
+                    _res.IDPacienteBD = idPac;
+
+                    _res.IDEnfermedadBD = int.Parse(_dre.Cells[0].Value.ToString());
+
+                    resultado.InsertarBitEnf(_res);
+                }
+            }
+        }
+
+        #endregion
+        private void btnEscanear_Click(object sender, EventArgs e)
+        {
+            if (txtNombre.Text != "")
+            {
+                PreInit();
+                PostInit();
+            }
+            else {
+                MessageBox.Show("Seleccione un paciente");
+            }
+        }
+
+        private void cmbBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (cmbBuscar.Text != "")
+            {
+                TimerBusqueda.Stop();
+            }
+            else
+            {
+                TimerBusqueda.Start();
+            }
+        }
+
+        private void TimerBusqueda_Tick(object sender, EventArgs e)
+        {
+            ReturnUserPac();
+        }
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            string busq = this.cmbBuscar.Text;
+
+            if (resultado.GetPacienteByMail(busq) != null)
+            {
+                PacientesBD _objpac = resultado.GetPacienteByMail(busq);
+
+                idPac = _objpac.IDPacienteBD;
+                this.txtNombre.Text = _objpac.NombPCBD;
+                this.txtAPaterno.Text = _objpac.APaterBD;
+                this.txtAmaterno.Text = _objpac.AMaterBD;
+                this.txtEdad.Text = _objpac.EdadBD.ToString();
+                this.txtSexo.Text = _objpac.SexoBD.ToString();
+                this.txtContacto.Text = _objpac.TelPCBD;
+
+            }
+            else {
+                MessageBox.Show("No se ha encontrado el paciente");
+            }
+
+        }
     }
 }
