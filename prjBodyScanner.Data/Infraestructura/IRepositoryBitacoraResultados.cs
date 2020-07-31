@@ -13,6 +13,7 @@ namespace prjBodyScanner.Data.Infraestructura
         List<ResultadosBD> GetBitacora();
         ResultadosBD GetBitacoraById(int id);
         bool EliminarBitacora(int _idBitacora);
+        
 
     }
 }

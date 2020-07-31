@@ -44,11 +44,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.SplitDisenioC = new System.Windows.Forms.SplitContainer();
             this.dgvResultado = new System.Windows.Forms.DataGridView();
-            this.clmIDEscaneo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmDoctorMat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmIDPaciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmNomPac = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmEnfermedad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dtgEmpleados = new System.Windows.Forms.DataGridView();
             this.clmID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +53,10 @@
             this.SplitBotonEd = new System.Windows.Forms.SplitContainer();
             this.btnExportar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.clmIDEscaneo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmDoctorMat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmIDPaciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmNomEnf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.SplitGeneral)).BeginInit();
             this.SplitGeneral.Panel1.SuspendLayout();
             this.SplitGeneral.Panel2.SuspendLayout();
@@ -181,8 +180,7 @@
             this.clmIDEscaneo,
             this.clmDoctorMat,
             this.clmIDPaciente,
-            this.clmNomPac,
-            this.clmEnfermedad});
+            this.clmNomEnf});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -212,36 +210,6 @@
             this.dgvResultado.Size = new System.Drawing.Size(910, 398);
             this.dgvResultado.TabIndex = 2;
             this.dgvResultado.Resize += new System.EventHandler(this.Empledos_Resize);
-            // 
-            // clmIDEscaneo
-            // 
-            this.clmIDEscaneo.HeaderText = "ID Escaneo";
-            this.clmIDEscaneo.Name = "clmIDEscaneo";
-            this.clmIDEscaneo.ReadOnly = true;
-            // 
-            // clmDoctorMat
-            // 
-            this.clmDoctorMat.HeaderText = "Matricula medico";
-            this.clmDoctorMat.Name = "clmDoctorMat";
-            this.clmDoctorMat.ReadOnly = true;
-            // 
-            // clmIDPaciente
-            // 
-            this.clmIDPaciente.HeaderText = "IdPaciente";
-            this.clmIDPaciente.Name = "clmIDPaciente";
-            this.clmIDPaciente.ReadOnly = true;
-            // 
-            // clmNomPac
-            // 
-            this.clmNomPac.HeaderText = "Nombre Paciente";
-            this.clmNomPac.Name = "clmNomPac";
-            this.clmNomPac.ReadOnly = true;
-            // 
-            // clmEnfermedad
-            // 
-            this.clmEnfermedad.HeaderText = "Enfermedad";
-            this.clmEnfermedad.Name = "clmEnfermedad";
-            this.clmEnfermedad.ReadOnly = true;
             // 
             // dtgEmpleados
             // 
@@ -369,6 +337,30 @@
             this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // clmIDEscaneo
+            // 
+            this.clmIDEscaneo.HeaderText = "ID Escaneo";
+            this.clmIDEscaneo.Name = "clmIDEscaneo";
+            this.clmIDEscaneo.ReadOnly = true;
+            // 
+            // clmDoctorMat
+            // 
+            this.clmDoctorMat.HeaderText = "Nombre Medico";
+            this.clmDoctorMat.Name = "clmDoctorMat";
+            this.clmDoctorMat.ReadOnly = true;
+            // 
+            // clmIDPaciente
+            // 
+            this.clmIDPaciente.HeaderText = "Paciente";
+            this.clmIDPaciente.Name = "clmIDPaciente";
+            this.clmIDPaciente.ReadOnly = true;
+            // 
+            // clmNomEnf
+            // 
+            this.clmNomEnf.HeaderText = "Enfermedad";
+            this.clmNomEnf.Name = "clmNomEnf";
+            this.clmNomEnf.ReadOnly = true;
+            // 
             // frmBResultados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,7 +416,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIDEscaneo;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmDoctorMat;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmIDPaciente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmNomPac;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmEnfermedad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmNomEnf;
     }
 }

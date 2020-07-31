@@ -35,6 +35,41 @@ namespace prjBodyScanner.Data.Repository
 
             return enfermedad;
         }
+        public PacientesBD GetPacienteById(int id)
+        {
+
+            PacientesBD paciente = null;
+
+            try
+            {
+                Expression<Func<PacientesBD, bool>> expression = e => e.IDPacienteBD.Equals(id);
+                paciente = contexto.PacientesBD.Where(expression).FirstOrDefault<PacientesBD>();
+            }
+            catch (Exception ex)
+            {
+                string errM = ex.Message;
+            }
+
+            return paciente;
+        }
+        public DoctorBD GetDoctorById(int id)
+        {
+
+            DoctorBD doctor = null;
+
+            try
+            {
+                Expression<Func<DoctorBD, bool>> expression = e => e.IDDoctor.Equals(id);
+                doctor = contexto.DoctorBD.Where(expression).FirstOrDefault<DoctorBD>();
+            }
+            catch (Exception ex)
+            {
+                string errM = ex.Message;
+            }
+
+            return doctor;
+        }
+       
 
         #region Busqueda Auto Completado
         private string GetCadenaConexion()

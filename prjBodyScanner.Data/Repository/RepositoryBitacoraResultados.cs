@@ -70,6 +70,7 @@ namespace prjBodyScanner.Data.Repository
 
             return respuesta;
         }
+       
 
     }
 }

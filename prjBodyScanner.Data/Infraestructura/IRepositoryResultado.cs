@@ -15,5 +15,7 @@ namespace prjBodyScanner.Data.Infraestructura
         AutoCompleteStringCollection LoadAutoComplete();
         PacientesBD GetPacienteByMail(String _mail);
         bool InsertarBitEnf(ResultadosBD _bita);
+        PacientesBD GetPacienteById(int id);
+        DoctorBD GetDoctorById(int id);
     }
 }

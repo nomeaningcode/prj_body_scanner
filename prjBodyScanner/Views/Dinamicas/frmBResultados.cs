@@ -133,9 +133,9 @@ namespace prjBodyScanner.Views.Dinamicas
             this.dgvResultado.DataSource = contexto.GetBitacora();
 
             this.dgvResultado.Columns[0].DataPropertyName = "IDResultado";
-            this.dgvResultado.Columns[1].DataPropertyName = "IDPacienteBD";
-            this.dgvResultado.Columns[2].DataPropertyName = "IDDoctorBD";
-            this.dgvResultado.Columns[3].DataPropertyName = "IDEnfermedadBD";
+            this.dgvResultado.Columns[1].DataPropertyName = "DoctorNom"; 
+            this.dgvResultado.Columns[2].DataPropertyName = "PacienteNom";
+            this.dgvResultado.Columns[3].DataPropertyName = "EnfermedadNom";
         }
         #endregion
 

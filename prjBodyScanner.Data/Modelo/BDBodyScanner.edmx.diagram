@@ -10,16 +10,16 @@
         <EntityTypeShape EntityType="GestionBodyscannerModel.EnfermedadesBD" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionBodyscannerModel.OcupacionesBD" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionBodyscannerModel.PacientesBD" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GestionBodyscannerModel.ResultadosBD" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionBodyscannerModel.SexoBD" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionBodyscannerModel.TipoSangreBD" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="GestionBodyscannerModel.fk_doctor" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionBodyscannerModel.fk_doc" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionBodyscannerModel.fk_enfer" ManuallyRouted="false" />
         <AssociationConnector Association="GestionBodyscannerModel.fk_ocup" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionBodyscannerModel.fk_paciente" ManuallyRouted="false" />
         <AssociationConnector Association="GestionBodyscannerModel.fk_sexo" ManuallyRouted="false" />
         <AssociationConnector Association="GestionBodyscannerModel.fk_tiposangre" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GestionBodyscannerModel.ResultadosBD" Width="1.5" PointX="5.25" PointY="4.5" />
+        <AssociationConnector Association="GestionBodyscannerModel.fk_doc" />
+        <AssociationConnector Association="GestionBodyscannerModel.fk_enfer" />
+        <AssociationConnector Association="GestionBodyscannerModel.fk_paciente" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

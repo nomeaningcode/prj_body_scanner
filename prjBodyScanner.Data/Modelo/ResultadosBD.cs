@@ -16,8 +16,11 @@ namespace prjBodyScanner.Data.Modelo
     {
         public int IDResultado { get; set; }
         public Nullable<int> IDPacienteBD { get; set; }
+        public string PacienteNom { get; set; }
         public Nullable<int> IDDoctorBD { get; set; }
+        public string DoctorNom { get; set; }
         public Nullable<int> IDEnfermedadBD { get; set; }
+        public string EnfermedadNom { get; set; }
     
         public virtual DoctorBD DoctorBD { get; set; }
         public virtual EnfermedadesBD EnfermedadesBD { get; set; }

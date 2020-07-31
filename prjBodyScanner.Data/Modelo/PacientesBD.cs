@@ -32,9 +32,9 @@ namespace prjBodyScanner.Data.Modelo
         public Nullable<int> IDOcupBD { get; set; }
     
         public virtual OcupacionesBD OcupacionesBD { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ResultadosBD> ResultadosBD { get; set; }
         public virtual SexoBD SexoBD { get; set; }
         public virtual TipoSangreBD TipoSangreBD { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ResultadosBD> ResultadosBD { get; set; }
     }
 }

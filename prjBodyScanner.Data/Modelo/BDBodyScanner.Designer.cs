@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\johva\source\repos\prjBodyScanner\prjBodyScanner.Data\Modelo\BDBodyScanner.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\mig_a\source\repos\prjBodyScanner\prjBodyScanner.Data\Modelo\BDBodyScanner.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

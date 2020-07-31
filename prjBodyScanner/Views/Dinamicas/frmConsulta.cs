@@ -13,6 +13,9 @@ using prjBodyScanner.Data.Modelo;
 using prjBodyScanner.Data.Repository;
 using prjBodyScanner.Clases;
 using prjBodyScanner.Cache;
+using System.Threading;
+using System.Security.Cryptography;
+using prjBodyScanner.Views.Bases;
 
 namespace prjBodyScanner.Views.Dinamicas
 {
@@ -23,7 +26,7 @@ namespace prjBodyScanner.Views.Dinamicas
             InitializeComponent();
         }
         #region Metodos de inicio
-
+        private Loading loading;
         private IRepositoryResultado resultado = new RepositoryResultado();
         private int idenfermedad = 0, idPac = 0;
         private void frmConsulta_Load(object sender, EventArgs e)
@@ -129,6 +132,13 @@ namespace prjBodyScanner.Views.Dinamicas
         {
             this.txtMatMedico.Text = UserLoginCache.Matricula;
         }
+        private void clearForms(IEnumerable<TextBox> _txt)
+        {
+            foreach (TextBox _cntrl in _txt)
+            {
+                _cntrl.Clear();
+            }
+        }
 
         #endregion
 
@@ -166,22 +176,50 @@ namespace prjBodyScanner.Views.Dinamicas
             {
                 foreach (DataGridViewRow _dre in dgvBitacora.Rows)
                 {
+                    
                     ResultadosBD _res = new ResultadosBD();
                     _res.IDDoctorBD = UserLoginCache.IIDoctor;
+                    DoctorBD doctor = resultado.GetDoctorById(UserLoginCache.IIDoctor);
+                    _res.DoctorNom = doctor.NombreEBD + " " + doctor.APaternoBD + " " + doctor.AMarteno;
                     _res.IDPacienteBD = idPac;
-
-                    _res.IDEnfermedadBD = int.Parse(_dre.Cells[0].Value.ToString());
+                    PacientesBD paciente = resultado.GetPacienteById(idPac);
+                    _res.PacienteNom = paciente.NombPCBD + " " + paciente.APaterBD + " " + paciente.AMaterBD;
+                    _res.IDEnfermedadBD = idenfermedad;
+                    EnfermedadesBD enfermedad = resultado.GetEnfermedadById(idenfermedad);
+                    _res.EnfermedadNom = enfermedad.NomEnfermedad;
 
                     resultado.InsertarBitEnf(_res);
                 }
             }
         }
+        private void Descanso()
+        {
+            Thread.Sleep(15000);
+        }
+        private void Iniciar()
+        {
+            loading = new Loading();
+            loading.Show();
+        }
+        private void Adios()
+        {
+            if (loading !=null)
+            {
+                loading.Close();
+            }
+            
 
+        }
         #endregion
-        private void btnEscanear_Click(object sender, EventArgs e)
+        private async void btnEscanear_Click(object sender, EventArgs e)
         {
             if (txtNombre.Text != "")
             {
+                Iniciar();
+                Task click = new Task(Descanso);
+                click.Start();
+                await click;
+                Adios();
                 PreInit();
                 PostInit();
             }
@@ -220,7 +258,11 @@ namespace prjBodyScanner.Views.Dinamicas
                 this.txtAPaterno.Text = _objpac.APaterBD;
                 this.txtAmaterno.Text = _objpac.AMaterBD;
                 this.txtEdad.Text = _objpac.EdadBD.ToString();
-                this.txtSexo.Text = _objpac.SexoBD.ToString();
+
+                if (_objpac.SexoBD != null) {
+                    this.txtSexo.Text = _objpac.SexoBD.NomSexo;
+                }
+
                 this.txtContacto.Text = _objpac.TelPCBD;
 
             }
@@ -229,5 +271,28 @@ namespace prjBodyScanner.Views.Dinamicas
             }
 
         }
+
+        private void btnLimpiarPanel_Click(object sender, EventArgs e)
+        {
+
+            if (!String.IsNullOrEmpty(txtRitcar.Text)) {
+               
+                DialogResult result = MessageBox.Show("¿Desea limpiar los datos?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    clearForms(sptSig.Panel2.Controls.OfType<TextBox>());
+
+                    clearForms(SPEdicion.Panel2.Controls.OfType<TextBox>());
+
+                    if (dgvBitacora.RowCount > 0)
+                    {
+                        dgvBitacora.Rows.Clear();
+                    }
+                }
+
+            }
+        }
+
     }
 }

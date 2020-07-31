@@ -30,8 +30,8 @@ namespace prjBodyScanner.Data.Modelo
         public virtual DbSet<EnfermedadesBD> EnfermedadesBD { get; set; }
         public virtual DbSet<OcupacionesBD> OcupacionesBD { get; set; }
         public virtual DbSet<PacientesBD> PacientesBD { get; set; }
-        public virtual DbSet<ResultadosBD> ResultadosBD { get; set; }
         public virtual DbSet<SexoBD> SexoBD { get; set; }
         public virtual DbSet<TipoSangreBD> TipoSangreBD { get; set; }
+        public virtual DbSet<ResultadosBD> ResultadosBD { get; set; }
     }
 }
